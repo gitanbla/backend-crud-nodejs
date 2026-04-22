@@ -11,8 +11,12 @@ const getSatu = async (req, res) => {
 };
 
 const tambah = async (req, res) => {
-  try { res.json(await Model.create(req.body.nama_provinsi)); } 
-  catch (err) { res.status(500).json({ error: err.message }); }
+  try {
+    const hasil = await Model.create(req.body); 
+    res.json(hasil);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const ubah = async (req, res) => {

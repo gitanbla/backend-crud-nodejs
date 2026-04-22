@@ -12,10 +12,11 @@ const getById = async (id) => {
   return rows[0]; 
 };
 
-const create = async (nama_provinsi) => {
+const create = async (data) => {
+  const { id, nama_provinsi } = data; // Ambil id dari req.body
   const { rows } = await pool.query(
-    'INSERT INTO provinsi (nama_provinsi) VALUES ($1) RETURNING *',
-    [nama_provinsi]
+    'INSERT INTO provinsi (id, nama_provinsi) VALUES ($1, $2) RETURNING *',
+    [id, nama_provinsi]
   );
   return rows[0];
 };
