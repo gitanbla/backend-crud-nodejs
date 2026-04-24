@@ -2,7 +2,10 @@ const pool = require('../config/db');
 
 const getAll = async () => {
   const query = `
-  SELECT k.*, p.nama_provinsi, kb.nama_kabkota
+  SELECT k.*, 
+         TO_CHAR(k.tanggallahir, 'YYYY-MM-DD') as tanggallahir, 
+         p.nama_provinsi, 
+         kb.nama_kabkota
   FROM kuliah k
   LEFT JOIN provinsi p ON k.provinsi::text = p.id::text
   LEFT JOIN kabkota kb ON k.kabkota::text = kb.id::text
@@ -13,7 +16,11 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const { rows } = await pool.query('SELECT * FROM kuliah WHERE id = $1', [id]);
+  // Menggunakan TO_CHAR agar format tanggal konsisten YYYY-MM-DD dan tidak terpengaruh timezone
+  const { rows } = await pool.query(
+    "SELECT *, TO_CHAR(tanggallahir, 'YYYY-MM-DD') as tanggallahir FROM kuliah WHERE id = $1", 
+    [id]
+  );
   return rows[0];
 };
 

@@ -9,9 +9,9 @@ const kuliahRoutes = require('./routes/kuliahRoutes');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors()); // Mengizinkan frontend mengakses API ini
-app.use(express.json()); // Membaca body request format JSON
-app.use(express.urlencoded({ extended: true })); // Membaca body request format Form Data
+app.use(cors()); 
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 
 app.use('/uploads', express.static('storage/uploads'));
 

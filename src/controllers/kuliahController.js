@@ -51,7 +51,10 @@ const ubah = async (req, res) => {
 
     res.json(await Model.update(req.params.id, dataYangDisimpan)); 
   } 
-  catch (err) { res.status(500).json({ error: err.message }); }
+  catch (err) { 
+    console.error("🛑 BONGKAR ERROR UPDATE:", err);
+    res.status(500).json({ error: err.message }); 
+  }
 };
 
 const hapus = async (req, res) => {
